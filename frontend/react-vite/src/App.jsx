@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Nav from './components/nav-bar/Nav';
 import Banner from './components/banner/Banner';
 import Body from './components/body/Body';
+import Footer from './components/footer/Footer';
 
 //test
 import ItemTemplate from './components/items/ItemTemplate';
@@ -19,6 +20,7 @@ function App() {
       <Nav />
       <Banner />
       <Body />
+      <Footer />
     </>
   )
 }

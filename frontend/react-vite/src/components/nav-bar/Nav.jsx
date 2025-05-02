@@ -3,8 +3,11 @@ import '../../css/nav-bar/nav.css'
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom'
 
 const Nav = () => {
+    const navigate = useNavigate();
+
     const searchText = 'Coffee Grinders';
 
     const [showInput, setShowInput] = useState(false);

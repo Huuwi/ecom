@@ -10,6 +10,15 @@ const Body = () => {
             <Item />
             <Item />
             <Item />
+            <div style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                padding: '15px'
+            }}>
+                <button className='more-btn'>View More</button>
+            </div>
         </>
     )
 }

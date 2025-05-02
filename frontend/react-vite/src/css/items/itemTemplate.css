@@ -3,10 +3,15 @@
     height: 70%;
     border-radius: 15px;
     /* background-color: aqua; */
-    background-image: url("/images/shoes4.jpg");
+    background-image: url("/images/cat.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    transition: transform 5s ease;
+}
+
+.item-img:hover {
+    transform: scale(1.1) rotate(9999999deg);
 }
 
 p {

@@ -6,11 +6,9 @@ const ItemTemplate = () => {
     return (
         <>
             {/* <img src="/images/fashion.jpg" class="img-fluid item-img" alt="Responsive image" /> */}
-            <div className='item-img'>
-
-            </div>
+            <div className='item-img'></div>
             <div style={{ color: 'black' }}>
-                <p>Bree Camo Stretch Cargo Jean - Olive/combo</p>
+                <p>U I I A Cat</p>
 
                 <p style={{
                     display: 'flex',
@@ -18,7 +16,7 @@ const ItemTemplate = () => {
                     alignItems: 'center'
                 }}>4 <FaStar /></p>
 
-                <p>$14.00</p>
+                <p className='price'>$9999.99</p>
             </div>
         </>
     )
