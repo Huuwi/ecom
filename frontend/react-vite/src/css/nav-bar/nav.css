@@ -1,0 +1,26 @@
+.logo-name {
+    color: #5433EB;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 95%;
+}
+
+.btn-outline-light {
+    color: black;
+}
+
+.btn-outline-light:hover {
+    background-color: #DBDBDB;
+}
+
+.form-control {
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    border: 1px solid rgb(107, 107, 107);
+    outline: none;
+    box-shadow: none;
+}
