@@ -6,7 +6,7 @@ const Search = () => {
 
     return (
         <>
-            <form className="d-flex mx-auto" role="search" style={{ width: "50%", height: "30px", zIndex: '1' }}>
+            <form className="d-flex mx-auto" role="search" style={{ width: "40vh", height: "30px", zIndex: '1' }}>
                 <div className="input-group">
                     <span className="input-group-text">
                         <IoSearch />

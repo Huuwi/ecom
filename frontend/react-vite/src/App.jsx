@@ -9,6 +9,9 @@ import Nav from './components/nav-bar/Nav';
 import Banner from './components/banner/Banner';
 import Body from './components/body/Body';
 
+//test
+import ItemTemplate from './components/items/ItemTemplate';
+
 function App() {
 
   return (

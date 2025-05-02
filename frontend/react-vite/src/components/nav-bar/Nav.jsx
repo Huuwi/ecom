@@ -11,7 +11,7 @@ const Nav = () => {
 
     // Hàm theo dõi sự kiện cuộn trang
     const handleScroll = () => {
-        if (window.scrollY > 400) {
+        if (window.scrollY > 300) {
             setShowInput(true);  // Hiển thị ô input
         } else {
             setShowInput(false);  // Ẩn ô input

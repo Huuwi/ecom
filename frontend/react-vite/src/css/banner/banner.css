@@ -1,16 +1,16 @@
 /* CSS cho Banner */
 .banner-container {
     position: relative;
-    top: 10vh;
-    /* Đảm bảo banner bắt đầu từ vị trí dưới navbar */
-    width: 100%;
-    height: 85vh;
-    /* Chiếm 90% chiều cao màn hình */
-    /* overflow: hidden; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+}
+
+.banner-text-overlay {
+    z-index: 10;
+}
+
+.carousel-inner img {
+    height: 100vh;
+    width: 100vh;
+    object-fit: cover;
 }
 
 .banner-container img {
@@ -26,10 +26,8 @@
 .banner-text {
     color: white;
     font-size: 8rem;
-    /* Tùy chỉnh kích thước chữ */
     font-weight: bold;
     z-index: 1;
-    /* Đảm bảo chữ luôn hiển thị trên ảnh */
     bottom: 50%;
     color: #d81f73;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -38,23 +36,19 @@
 @media (max-width: 768px) {
     .banner-container {
         height: 60vh;
-        /* Giảm chiều cao banner cho màn hình nhỏ */
     }
 
     .banner-text {
         font-size: 3rem;
-        /* Giảm kích thước chữ cho màn hình nhỏ */
     }
 }
 
 @media (max-width: 480px) {
     .banner-container {
         height: 50vh;
-        /* Giảm chiều cao banner thêm cho màn hình di động */
     }
 
     .banner-text {
         font-size: 2rem;
-        /* Giảm kích thước chữ cho màn hình di động */
     }
 }
