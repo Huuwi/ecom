@@ -72,7 +72,7 @@ const Nav = () => {
                             <button className="btn btn-outline-light me-3"><FaRegHeart /></button>
                             <button className="btn btn-outline-light me-3"><FiShoppingCart /></button>
                         </div>
-                        <button className="btn btn-outline-light" style={{ border: '1px solid #DBDBDB' }}>Sign In</button>
+                        <button className="btn btn-outline-light" style={{ border: '1px solid #DBDBDB' }} onClick={() => window.open('test.html', '_blank')}> Sign In</button>
                     </div>
                 </div>
 
