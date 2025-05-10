@@ -11,7 +11,8 @@ exports.getAllUsers = async (req, res) => {
 
 exports.addUser = async (req, res) => {
     try {
-        const users = await UserModel.addUser();
+        const user = req.body;
+        const users = await UserModel.addUser(user);
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -20,7 +21,8 @@ exports.addUser = async (req, res) => {
 
 exports.delUser = async (req, res) => {
     try {
-        const users = await UserModel.delUser();
+        const { UserID } = req.body;
+        const users = await UserModel.delUser(UserID);
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });

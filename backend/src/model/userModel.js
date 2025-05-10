@@ -1,58 +1,67 @@
-const db = require('../database/dbConfig');
-const sql = require('mssql');
+const { poolPromise, sql } = require('../database/dbConfig');
 
 // Lay danh sach users
 exports.getAllUsers = async () => {
     try {
         // Kết nối với database
-        await sql.connect(db);
+        const pool = await poolPromise;
 
         // Thực hiện truy vấn
-        const result = await sql.query('SELECT * FROM users');
+        const result = await pool.request().query('Select * from users')
 
         // Trả về kết quả
         return result.recordset;  // `recordset` chứa dữ liệu trả về từ truy vấn
     } catch (err) {
         console.error('Error querying database:', err);
         throw err;  // Ném lỗi ra nếu có
-    } finally {
-        // Đảm bảo kết nối được đóng sau khi truy vấn
-        sql.close();
     }
 };
 
 // Them 1 user moi
-exports.addUser = async () => {
+exports.addUser = async (user) => {
     try {
         // Kết nối với database
-        await sql.connect(db);
+        const pool = await poolPromise;
+
+        const { Username, PasswordHash, FullName, Email, Phone, Address, Role } = user;
 
         // Thực hiện truy vấn
-        const result = await sql.query(`
-            INSERT INTO Users (Username, PasswordHash, FullName, Email, Phone, Address, Role)
-            VALUES (N'john_doe2', N'$2b$10$abc123xyz456hashedpassword', N'John Doe', N'john.doe@example.com', N'0123456789', N'123 Main Street', N'Customer');
-        `);
+        const result = await pool.request()
+            .input('Username', sql.NVarChar, Username)
+            .input('PasswordHash', sql.NVarChar, PasswordHash)
+            .input('FullName', sql.NVarChar, FullName)
+            .input('Email', sql.NVarChar, Email)
+            .input('Phone', sql.NVarChar, Phone)
+            .input('Address', sql.NVarChar, Address)
+            .input('Role', sql.NVarChar, Role || 'Customer')
+            .query(`
+                INSERT INTO Users (Username, PasswordHash, FullName, Email, Phone, Address, Role)
+                VALUES (@Username, @PasswordHash, @FullName, @Email, @Phone, @Address, @Role)
+            `);
 
         // Trả về kết quả
         console.log('Inserting a user...');
-        return result;
+        return result.recordset;
     } catch (err) {
         console.error('Error querying database:', err);
         throw err;  // Ném lỗi ra nếu có
-    } finally {
-        // Đảm bảo kết nối được đóng sau khi truy vấn
-        sql.close();
     }
 };
 
 // Xoa 1 user
-exports.delUser = async () => {
+exports.delUser = async (UserID) => {
     try {
         // Kết nối với database
-        await sql.connect(db);
+        const pool = await poolPromise;
+        
+        console.log(UserID);
 
         // Thực hiện truy vấn
-        const result = await sql.query('DELETE FROM Users WHERE UserID = 8');
+        const result = await pool.request()
+            .input('UserID', sql.Int, UserID)
+            .query(`
+                DELETE FROM Users WHERE UserID = @UserID;
+            `);
 
         // Trả về kết quả
         console.log('Deleting a user...');
@@ -60,8 +69,5 @@ exports.delUser = async () => {
     } catch (err) {
         console.error('Error querying database:', err);
         throw err;  // Ném lỗi ra nếu có
-    } finally {
-        // Đảm bảo kết nối được đóng sau khi truy vấn
-        sql.close();
     }
 };
