@@ -12,15 +12,29 @@ const host = process.env.host;
 // console.log('host:', host);
 
 const config = {
-    user: dbUser,        
+    user: dbUser,
     password: dbPassword,
-    server: host,       
-    database: db,   
+    server: host,
+    database: db,
     options: {
-        encrypt: false,        
+        encrypt: false,
         trustServerCertificate: true
     }
 };
 
-module.exports = config;
+// Khởi tạo pool kết nối
+const poolPromise = new sql.ConnectionPool(config)
+    .connect()
+    .then(pool => {
+        console.log('Connected to MSSQL');
+        return pool;
+    })
+    .catch(err => console.log('Database Connection Failed! Bad Config: ', err));
+
+module.exports = {
+    sql,
+    poolPromise
+};
+
+module.exports = { poolPromise, sql };
 

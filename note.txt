@@ -1,0 +1,1 @@
+Khi merge branch, neu gap man hinh xanh duong, nhap lenh :wq la xong!!!
