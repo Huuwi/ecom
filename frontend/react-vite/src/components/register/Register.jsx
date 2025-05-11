@@ -33,12 +33,22 @@ const Register = () => {
         // console.log(backendUrl);
         console.log({ Username, PasswordHash, FullName, Email, Phone, Address, Role });
         try {
-            let responseLogin = await axios.post(`${backendUrl}/user/addUser`, { Username, PasswordHash, FullName, Email, Phone, Address, Role });
+            let responseLogin = await axios.post(`${backendUrl}/auth/register`, { Username, PasswordHash, FullName, Email, Phone, Address, Role });
             console.log(responseLogin.data);
-            window.alert('Đăng ký tài khoản thành công!')
+            window.alert('Đăng ký tài khoản thành công!');
+            window.location.reload();
+
         } catch (error) {
             console.log(error);
             window.alert('Lỗi khi đăng ký tài khoản!');
+        } finally {
+            // Clear input
+            setUserName('');
+            setPasswordHash('');
+            setFullName('');
+            setEmail('');
+            setPhone('');
+            setAddress('');
         }
     };
 

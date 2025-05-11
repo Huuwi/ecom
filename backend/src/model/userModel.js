@@ -53,8 +53,6 @@ exports.delUser = async (UserID) => {
     try {
         // Kết nối với database
         const pool = await poolPromise;
-        
-        console.log(UserID);
 
         // Thực hiện truy vấn
         const result = await pool.request()
@@ -71,3 +69,29 @@ exports.delUser = async (UserID) => {
         throw err;  // Ném lỗi ra nếu có
     }
 };
+
+// Xac thuc dang nhap user
+exports.login = async (user) => {
+    try {
+        // Kết nối với database
+        const pool = await poolPromise;
+
+        const { Username, PasswordHash } = user;
+
+        // Thực hiện truy vấn
+        const result = await pool.request()
+            .input('Username', sql.NVarChar, Username)
+            .input('PasswordHash', sql.NVarChar, PasswordHash)
+            .query(`
+                SELECT *  FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash;
+            `);
+
+        // Trả về kết quả
+        console.log('Checking user...');
+        return result.recordset;
+    }
+    catch (error) {
+        console.error('Error querying database:', err);
+        throw err;  // Ném lỗi ra nếu có
+    }
+}
