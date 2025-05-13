@@ -183,8 +183,8 @@ const Nav = () => {
                         <a href='#' className="navbar-brand" style={{ color: '#5433EB' }}>SHOP</a>
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <div className="navbar-nav gap-4">
-                                <a href="#home" className="nav-link">Home</a>
-                                <a href="#explore" className="nav-link">Explore</a>
+                                <a href="/" className="nav-link">Home</a>
+                                <a href="/" className="nav-link">Explore</a>
                             </div>
                         </div>
                     </div>
@@ -211,11 +211,17 @@ const Nav = () => {
                     {/* Phía bên phải: Icon và Sign In */}
                     <div className="d-flex align-items-center">
                         <div className="collapse navbar-collapse" id="navbarNav">
-                            <button className="btn btn-outline-light me-3"><FaRegHeart /></button>
-                            <button className="btn btn-outline-light me-3"><FiShoppingCart /></button>
+                            <button className="btn btn-outline-light me-3" onClick={() => { window.open('/favProducts', '_blank') }}><FaRegHeart /></button>
+                            <button className="btn btn-outline-light me-3" onClick={() => { window.open('/cart', '_blank') }}><FiShoppingCart /></button>
                         </div>
                         {isLogin ?
-                            <button className="btn btn-outline-light" style={{ border: '1px solid #DBDBDB' }} onClick={(e) => handleLogout(e)}> {loginedName}</button>
+                            <div className='dropdown'>
+                                <button className="btn btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false" style={{ border: '1px solid #DBDBDB' }}> {loginedName}</button>
+                                <ul className="dropdown-menu dropdown-menu-end mt-2 cursor-pointer">
+                                    <li><button className="dropdown-item " onClick={() => { window.open('/userInfor', '_blank') }}>Cài đặt</button></li>
+                                    <li><button className="dropdown-item " onClick={handleLogout}>Đăng xuất</button></li>
+                                </ul>
+                            </div>
                             :
                             <button className="btn btn-outline-light" style={{ border: '1px solid #DBDBDB' }} onClick={openModal}> Sign In</button>
                         }
