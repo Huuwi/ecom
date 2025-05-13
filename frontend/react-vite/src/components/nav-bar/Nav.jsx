@@ -70,12 +70,7 @@ const Nav = () => {
             let responseLogin = await axios.post(`${backendUrl}/auth/login`, { Username, PasswordHash }, { withCredentials: true });
             // console.log(responseLogin.data);
             window.alert('Đăng nhập thành công!');
-            // window.location.reload();
-
-            // // Lưu token vào localStorage
-            // localStorage.setItem('accessToken', responseLogin.data.accessToken);
-            // localStorage.setItem('refreshToken', responseLogin.data.refreshToken);
-            // localStorage.setItem('Username', responseLogin.data.Username);
+            window.location.reload();
 
             if (responseLogin.data) {
                 setIsLogin(true);
@@ -103,11 +98,6 @@ const Nav = () => {
             // console.log(responseLogout.data);
             window.alert('Đăng xuất thành công!');
 
-            // // Xóa token khỏi localStorage
-            // localStorage.removeItem('accessToken');
-            // localStorage.removeItem('refreshToken');
-            // localStorage.removeItem('Username');
-
             setIsLogin(false);
             // window.location.reload();
 
@@ -117,37 +107,6 @@ const Nav = () => {
             window.alert('Lỗi khi đăng xuất tài khoản!');
         }
     }
-
-    // // Kiểm tra trạng thái đăng nhập khi trang được tải lại
-    // useEffect(() => {
-    //     const token = localStorage.getItem('accessToken');
-    //     if (token) {
-    //         setLoginedName(localStorage.getItem('Username'));
-    //         setIsLogin(true); // Đánh dấu người dùng đã đăng nhập
-    //     } else {
-    //         setIsLogin(false); // Nếu không có token thì người dùng chưa đăng nhập
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     // Gọi hàm getProtectedData khi component mount
-    //     const getProtectedData = async () => {
-    //         const token = localStorage.getItem('accessToken');
-    //         try {
-    //             const response = await axios.get('http://localhost:3000/api/profile', {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`
-    //                 },
-    //                 withCredentials: true
-    //             });
-    //             setData(response.data); // Lưu dữ liệu vào state 
-    //         } catch (err) {
-    //             setError(err.message); // Lưu lỗi vào state
-    //         }
-    //     };
-
-    //     getProtectedData();
-    // }, []);
 
     useEffect(() => {
         const checkLogin = async () => {
