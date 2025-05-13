@@ -51,6 +51,12 @@ exports.login = async (req, res) => {
             secure: false // nếu đang test ở localhost. Đặt true nếu là HTTPS
         });
 
+        res.cookie('ID', login[0].UserID, {
+            httpOnly: true, // Cookie không thể truy cập từ JavaScript phía client
+            sameSite: 'lax', // hoặc 'none' nếu dùng HTTPS
+            secure: false // nếu đang test ở localhost. Đặt true nếu là HTTPS
+        })
+
         res.json({ Username: login[0].Username, accessToken });
     }
     catch (error) {
@@ -95,6 +101,11 @@ exports.logout = async (req, res) => {
     // });
 
     res.clearCookie('accessToken', {
+        httpOnly: true,
+        sameSite: 'Strict', // Thiết lập bảo mật
+    });
+
+    res.clearCookie('ID', {
         httpOnly: true,
         sameSite: 'Strict', // Thiết lập bảo mật
     });
