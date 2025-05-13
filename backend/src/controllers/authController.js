@@ -37,16 +37,16 @@ exports.login = async (req, res) => {
         const refreshToken = generateRefreshToken(payload);
 
         // Gửi token qua cookie
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true, // Cookie không thể truy cập từ JavaScript phía client
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
-            sameSite: 'lax', // hoặc 'none' nếu dùng HTTPS
-            secure: false // nếu đang test ở localhost. Đặt true nếu là HTTPS
-        });
+        // res.cookie('refreshToken', refreshToken, {
+        //     httpOnly: true, // Cookie không thể truy cập từ JavaScript phía client
+        //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
+        //     sameSite: 'lax', // hoặc 'none' nếu dùng HTTPS
+        //     secure: false // nếu đang test ở localhost. Đặt true nếu là HTTPS
+        // });
 
         res.cookie('accessToken', accessToken, {
             httpOnly: true, // Cookie không thể truy cập từ JavaScript phía client
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
+            maxAge: 20 * 60 * 1000, // 20 phút
             sameSite: 'lax', // hoặc 'none' nếu dùng HTTPS
             secure: false // nếu đang test ở localhost. Đặt true nếu là HTTPS
         });
@@ -74,6 +74,7 @@ exports.checkLogin = async (req, res) => {
     }
 };
 
+// Tạo access token mới
 exports.refreshToken = (req, res) => {
     const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: 'Không có refresh token' });
@@ -88,10 +89,10 @@ exports.refreshToken = (req, res) => {
 }
 
 exports.logout = async (req, res) => {
-    res.clearCookie('refreshToken', {
-        httpOnly: true,
-        sameSite: 'Strict', // Thiết lập bảo mật
-    });
+    // res.clearCookie('refreshToken', {
+    //     httpOnly: true,
+    //     sameSite: 'Strict', // Thiết lập bảo mật
+    // });
 
     res.clearCookie('accessToken', {
         httpOnly: true,
