@@ -17,6 +17,25 @@ exports.getAllUsers = async () => {
     }
 };
 
+// Lay thong tin 1 user
+exports.getUser = async (ID) => {
+    try {
+        // Kết nối với database
+        const pool = await poolPromise;
+
+        // Thực hiện truy vấn
+        const result = await pool.request()
+            .input('UserID', sql.Int, ID)
+            .query('Select * from users where UserID = @UserID')
+
+        // Trả về kết quả
+        return result.recordset;  // `recordset` chứa dữ liệu trả về từ truy vấn
+    } catch (err) {
+        console.error('Error querying database:', err);
+        throw err;  // Ném lỗi ra nếu có
+    }
+};
+
 // Them 1 user moi
 exports.addUser = async (user) => {
     try {
@@ -90,8 +109,102 @@ exports.login = async (user) => {
         console.log('Checking user...');
         return result.recordset;
     }
-    catch (error) {
+    catch (err) {
         console.error('Error querying database:', err);
         throw err;  // Ném lỗi ra nếu có
     }
 }
+
+// Chinh sua thong tin nguoi dung
+exports.changeInfor = async (newInfor, UserID) => {
+    try {
+        // Kết nối với database
+        const pool = await poolPromise;
+
+        const { FullName, Email, Phone } = newInfor;
+
+        // Thực hiện truy vấn
+        const result = await pool.request()
+            .input('UserID', sql.Int, UserID)
+            .input('FullName', sql.NVarChar, FullName)
+            .input('Email', sql.NVarChar, Email)
+            .input('Phone', sql.NVarChar, Phone)
+            .query(`
+                UPDATE Users SET FullName = @FullName, Email = @Email, Phone = @Phone WHERE UserID = @UserID;
+            `);
+
+        // Trả về kết quả
+        console.log('Updating user infor...');
+        return result.rowsAffected;
+    }
+    catch (err) {
+        console.error('Error querying database:', err);
+        throw err;  // Ném lỗi ra nếu có
+    }
+}
+
+// Chinh sua thong tin tai khoan nguoi dung
+exports.changeAccountInfor = async (newInfor, UserID) => {
+    try {
+        // Kết nối với database
+        const pool = await poolPromise;
+
+        const { Username, PasswordHash } = newInfor;
+
+        const ID = UserID;
+
+        console.log(ID);
+
+        // Thực hiện truy vấn
+        const result = await pool.request()
+            .input('UserID', sql.Int, ID)
+            .input('Username', sql.NVarChar, Username)
+            .input('PasswordHash', sql.NVarChar, PasswordHash)
+            .query(`
+                UPDATE Users SET Username = @Username, PasswordHash = @PasswordHash WHERE UserID = @UserID;
+            `);
+
+        // Trả về kết quả
+        console.log('Updating account infor...');
+        return result.rowsAffected;
+    }
+    catch (err) {
+        console.error('Error querying database:', err);
+        throw err;  // Ném lỗi ra nếu có
+    }
+}
+
+// Chinh sua thong tin dia chi
+exports.changeAddress = async (newInfor, UserID) => {
+    try {
+        // Kết nối với database
+        const pool = await poolPromise;
+
+        const { Address } = newInfor;
+
+        const ID = UserID;
+
+        console.log(ID);
+
+        // Thực hiện truy vấn
+        const result = await pool.request()
+            .input('UserID', sql.Int, ID)
+            .input('Address', sql.NVarChar, Address)
+            .query(`
+                UPDATE Users SET Address = @Address WHERE UserID = @UserID;
+            `);
+
+        // Trả về kết quả
+        console.log('Updating address infor...');
+        return result.rowsAffected;
+    }
+    catch (err) {
+        console.error('Error querying database:', err);
+        throw err;  // Ném lỗi ra nếu có
+    }
+}
+
+
+
+
+
