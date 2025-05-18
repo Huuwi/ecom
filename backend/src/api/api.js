@@ -2,6 +2,8 @@ const express = require('express');
 const api = express.Router();
 const userRouter = require('../routes/userRouter.js');
 const authRouter = require('../routes/authRouter.js');
+const productRouter = require('../routes/productRouter.js');
+const categoryRouter = require('../routes/categoryRouter.js');
 
 api.get('/', (req, res) => {
     const forwardedIp = req.headers['x-forwarded-for'] || req.ip
@@ -17,6 +19,10 @@ api.get("/ping", (req, res) => {
         message: "ok from backend!"
     });
 })
+
+api.use('/category', categoryRouter);
+
+api.use('/product', productRouter);
 
 api.use('/user', userRouter);
 
