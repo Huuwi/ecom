@@ -1,5 +1,6 @@
 const { poolPromise, sql } = require('../database/dbConfig');
 
+
 // Lay danh sach users
 exports.getAllUsers = async () => {
     try {

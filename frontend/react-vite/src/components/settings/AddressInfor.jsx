@@ -42,7 +42,7 @@ const AddressInfor = ({ addressInfor }) => {
 
   return (
     <div className="container mt-5">
-      <i><u>C</u>hỉnh sửa thông tin tài khoản</i>
+      <i><u>C</u>hỉnh sửa địa chỉ nhận hàng</i>
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="row g-3">
 

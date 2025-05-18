@@ -6,14 +6,21 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
 import Modal from 'bootstrap/js/dist/modal';
+import Menu from './Menu';
 
 
-const Nav = () => {
-    const searchText = 'Coffee Grinders';
+const Nav = ({ handleCateProduct }) => {
+    const searchText = 'Search for products';
 
     const [showInput, setShowInput] = useState(false);
 
     const modalRef = useRef();
+
+    const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+    const [isOpenFavWindow, setIsOpenFavWindow] = useState(false);
+
+    const [categories, setCategories] = useState([]);
 
     // user login infor
     const [Username, setUserName] = useState('');
@@ -43,16 +50,6 @@ const Nav = () => {
             setShowInput(false);  // Ẩn ô input
         }
     };
-
-    // Thêm sự kiện khi load và khi cuộn
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-
-        // Cleanup khi component unmount
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     // Xu ly dang nhap
     const handleLogin = async (e) => {
@@ -108,6 +105,27 @@ const Nav = () => {
         }
     }
 
+    // Xu li mo categories
+    const handleCategories = () => {
+        setIsOpenMenu(!isOpenMenu);
+    }
+
+    // Xu ly mo fav window
+    const handleOpenFavWindow = () => {
+        setIsOpenFavWindow(!isOpenFavWindow);
+    }
+
+    // Thêm sự kiện khi load và khi cuộn
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        // Cleanup khi component unmount
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    // Kiem tra dang nhap
     useEffect(() => {
         const checkLogin = async () => {
             const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -132,10 +150,35 @@ const Nav = () => {
         checkLogin();
     }, []);
 
+
+    // Lay categories
+    useEffect(() => {
+        const getCategories = async () => {
+            const backendUrl = import.meta.env.VITE_BACKEND_URL;
+            try {
+                const categoriesResponse = await axios.get(`${backendUrl}/category/categories`, { withCredentials: true });
+
+                // console.log(categoriesResponse.data);
+
+                setCategories(categoriesResponse.data);
+
+            } catch (err) {
+                console.log("Lỗi không lấy được thể loại!");
+            }
+        };
+
+        getCategories();
+    }, []);
+
     return (
         <>
-            <nav className="navbar navbar-expand-lg fixed-top" style={{ height: '10%', boxShadow: '0 0.5px 0px rgba(0, 0, 0, 0.1)', background: 'white' }}>
-                <div className="container-fluid">
+            <nav className="navbar navbar-expand-lg fixed-top d-flex flex-column" style={{
+                height: isOpenMenu ? '31%' : '10%',
+                boxShadow: '0 0.5px 0px rgba(0, 0, 0, 0.1)', background: 'white', padding: '0', margin: '0',
+                transition: isOpenMenu ? '' : 'all 0.5s ease'
+            }}>
+
+                <div className="container-fluid pt-3 pb-3">
 
                     {/* Phía bên trái: Logo và các link */}
                     <div className="d-flex gap-3">
@@ -143,9 +186,9 @@ const Nav = () => {
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <div className="navbar-nav gap-4">
                                 <a href="/" className="nav-link">Home</a>
-                                <a href="/" className="nav-link">Explore</a>
                             </div>
                         </div>
+                        <button className="nav-link" onClick={handleCategories}>Explore</button>
                     </div>
 
                     {/* Phía giữa: Search box */}
@@ -170,8 +213,14 @@ const Nav = () => {
                     {/* Phía bên phải: Icon và Sign In */}
                     <div className="d-flex align-items-center">
                         <div className="collapse navbar-collapse" id="navbarNav">
-                            <button className="btn btn-outline-light me-3" onClick={() => { window.open('/favProducts', '_blank') }}><FaRegHeart /></button>
-                            <button className="btn btn-outline-light me-3" onClick={() => { window.open('/cart', '_blank') }}><FiShoppingCart /></button>
+                            <button className="btn btn-outline-light me-3 hover-box1" onClick={() => { handleOpenFavWindow }}>
+                                <FaRegHeart ></FaRegHeart>
+                                <span className="placeholder1">Sản phẩm yêu thích</span>
+                            </button>
+                            <button className="btn btn-outline-light me-3 hover-box2" onClick={() => { window.open('/cart', '_blank') }}>
+                                <FiShoppingCart ></FiShoppingCart>
+                                <span className="placeholder2">Giỏ hàng của bạn</span>
+                            </button>
                         </div>
                         {isLogin ?
                             <div className='dropdown'>
@@ -185,7 +234,10 @@ const Nav = () => {
                             <button className="btn btn-outline-light" style={{ border: '1px solid #DBDBDB' }} onClick={openModal}> Sign In</button>
                         }
                     </div>
+
                 </div>
+
+                <Menu isOpen={isOpenMenu} categoriesData={categories} handleCateProduct={handleCateProduct} />
 
             </nav >
 
