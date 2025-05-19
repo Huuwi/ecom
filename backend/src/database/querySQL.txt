@@ -23,15 +23,15 @@ CREATE TABLE Categories (
     Description NVARCHAR(255)
 );
 
-
 CREATE TABLE Products (
     ProductID INT IDENTITY(1,1) PRIMARY KEY,
     CategoryID INT,
     ProductName NVARCHAR(100) NOT NULL,
     Description NVARCHAR(MAX),
     Price DECIMAL(18, 2) NOT NULL,
-    Stock INT DEFAULT 0,
+    Sales INT DEFAULT 0, 
     ImageUrl NVARCHAR(255),
+    IsFavorite BIT DEFAULT 0, -- Thêm thuộc tính sản phẩm yêu thích
     CreatedAt DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
 );

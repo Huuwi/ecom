@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { IoSearch } from "react-icons/io5";
 
 const Search = () => {
-    const searchText = 'Coffee Grinders';
+    const searchText = 'Search for products';
 
     return (
         <>
