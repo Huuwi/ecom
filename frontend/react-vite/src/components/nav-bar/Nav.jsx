@@ -9,7 +9,7 @@ import Modal from 'bootstrap/js/dist/modal';
 import Menu from './Menu';
 
 
-const Nav = ({ handleCateProduct }) => {
+const Nav = ({ handleCateProduct, handleFavProduct }) => {
     const searchText = 'Search for products';
 
     const [showInput, setShowInput] = useState(false);
@@ -17,8 +17,6 @@ const Nav = ({ handleCateProduct }) => {
     const modalRef = useRef();
 
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-
-    const [isOpenFavWindow, setIsOpenFavWindow] = useState(false);
 
     const [categories, setCategories] = useState([]);
 
@@ -112,7 +110,8 @@ const Nav = ({ handleCateProduct }) => {
 
     // Xu ly mo fav window
     const handleOpenFavWindow = () => {
-        setIsOpenFavWindow(!isOpenFavWindow);
+        console.log("Gọi handleFavProduct với 1");
+        handleFavProduct(1);
     }
 
     // Thêm sự kiện khi load và khi cuộn
@@ -172,19 +171,19 @@ const Nav = ({ handleCateProduct }) => {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg fixed-top d-flex flex-column" style={{
-                height: isOpenMenu ? '31%' : '10%',
+            <nav className="navbar navbar-expand-lg fixed-top d-flex flex-column m-0 gap-0" style={{
+                height: isOpenMenu ? '30%' : '10%',
                 boxShadow: '0 0.5px 0px rgba(0, 0, 0, 0.1)', background: 'white', padding: '0', margin: '0',
-                transition: isOpenMenu ? '' : 'all 0.5s ease'
+                transition: isOpenMenu ? '' : 'all 0.5s ease',
             }}>
 
                 <div className="container-fluid pt-3 pb-3">
 
                     {/* Phía bên trái: Logo và các link */}
-                    <div className="d-flex gap-3">
-                        <a href='#' className="navbar-brand" style={{ color: '#5433EB' }}>SHOP</a>
+                    <div className="d-flex gap-3 m-0">
                         <div className="collapse navbar-collapse" id="navbarNav">
-                            <div className="navbar-nav gap-4">
+                            <div className="navbar-nav">
+                                <a href='#' className=" navbar-brand" style={{ color: '#5433EB' }}>SHOP</a>
                                 <a href="/" className="nav-link">Home</a>
                             </div>
                         </div>
@@ -193,7 +192,7 @@ const Nav = ({ handleCateProduct }) => {
 
                     {/* Phía giữa: Search box */}
                     {showInput &&
-                        <form className="d-flex mx-auto" role="search" style={{ width: "40%" }}>
+                        <form className="d-flex mx-auto m-0" role="search" style={{ width: "40%" }}>
                             <div className="collapse navbar-collapse" id="navbarNav">
 
                                 <div className="input-group">
@@ -211,12 +210,13 @@ const Nav = ({ handleCateProduct }) => {
                     }
 
                     {/* Phía bên phải: Icon và Sign In */}
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center m-0" style={{ position: 'relative' }}>
                         <div className="collapse navbar-collapse" id="navbarNav">
-                            <button className="btn btn-outline-light me-3 hover-box1" onClick={() => { handleOpenFavWindow }}>
+                            <button className="btn btn-outline-light me-3 hover-box1" onClick={handleOpenFavWindow}>
                                 <FaRegHeart ></FaRegHeart>
                                 <span className="placeholder1">Sản phẩm yêu thích</span>
                             </button>
+                            
                             <button className="btn btn-outline-light me-3 hover-box2" onClick={() => { window.open('/cart', '_blank') }}>
                                 <FiShoppingCart ></FiShoppingCart>
                                 <span className="placeholder2">Giỏ hàng của bạn</span>
@@ -226,6 +226,9 @@ const Nav = ({ handleCateProduct }) => {
                             <div className='dropdown'>
                                 <button className="btn btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false" style={{ border: '1px solid #DBDBDB' }}> {loginedName}</button>
                                 <ul className="dropdown-menu dropdown-menu-end mt-2 cursor-pointer">
+                                    <li style={{ textAlign: 'left', paddingLeft: '15px' }}><a href="/" className="dropdown-item nav-link d-block d-lg-none" >Home</a></li>
+                                    <li><button className="dropdown-item d-block d-lg-none" onClick={handleOpenFavWindow}>Sản phẩm yêu thích </button></li>
+                                    <li><button className="dropdown-item d-block d-lg-none" onClick={() => { window.open('/cart', '_blank') }}>Giỏ hàng </button></li>
                                     <li><button className="dropdown-item " onClick={() => { window.open('/userInfor', '_blank') }}>Cài đặt</button></li>
                                     <li><button className="dropdown-item " onClick={handleLogout}>Đăng xuất</button></li>
                                 </ul>
@@ -233,6 +236,7 @@ const Nav = ({ handleCateProduct }) => {
                             :
                             <button className="btn btn-outline-light" style={{ border: '1px solid #DBDBDB' }} onClick={openModal}> Sign In</button>
                         }
+
                     </div>
 
                 </div>
@@ -243,7 +247,7 @@ const Nav = ({ handleCateProduct }) => {
 
             {/* Cửa sổ đăng ký */}
             <div
-                className="modal fade"
+                className="modal fade m-0"
                 tabIndex="-1"
                 ref={modalRef}
             >

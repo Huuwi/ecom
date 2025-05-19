@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa6";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 
-const ItemTemplate = ({ productItem }) => {
+const ItemTemplate = ({ productItem, oneProductData, hanleClickProduct }) => {
     const [itemData, setItemData] = useState([]);
     const [bgImage, setBgImage] = useState('');
     const [isFav, setIsFav] = useState(false);
@@ -43,6 +43,13 @@ const ItemTemplate = ({ productItem }) => {
         }
     }
 
+    // Xu ly nhan 1 san pham
+    const handleClickProduct = (productItem) => {
+        // console.log(productItem);
+        oneProductData(productItem);
+        hanleClickProduct(1);
+    }
+
     // Xu ly anh loi
     useEffect(() => {
         setItemData(productItem);
@@ -65,7 +72,7 @@ const ItemTemplate = ({ productItem }) => {
     }, [productItem]);
 
     return (
-        <div className='item' style={{ width: '100%', height: '100%', cursor: 'pointer', position: 'relative' }}>
+        <div className='item' style={{ width: '100%', height: '25vh', cursor: 'pointer', position: 'relative', margin: '0px' }}>
             <div className='item-img' style={{
                 backgroundImage: `url(${bgImage})`
             }}>
@@ -77,9 +84,9 @@ const ItemTemplate = ({ productItem }) => {
 
             {/* Nội dung dưới hình ảnh */}
             <div style={{ color: 'black', padding: '10px' }}>
-                <p className='name-hover'>{truncateText(productItem.ProductName, 16)}</p>
+                <a href='#' className='name-hover' onClick={() => handleClickProduct(productItem)}>{truncateText(productItem.ProductName, 16)}</a>
                 <p>4 <FaStar /></p>
-                <p>${productItem.Price}</p>
+                <p>{productItem.Price} VNĐ</p>
             </div>
         </div >
 

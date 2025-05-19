@@ -40,3 +40,13 @@ exports.resetFav = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+exports.getFavProduct = async (req, res) => {
+    try {
+        const favProducts = await ProductModel.getFavProduct();
+        res.json(favProducts);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

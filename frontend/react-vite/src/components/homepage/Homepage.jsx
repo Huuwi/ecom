@@ -8,15 +8,21 @@ import Footer from '../footer/Footer';
 const Homepage = () => {
     const [cateProduct, setCateProduct] = useState(0);
 
+    const [favProduct, setFavProduct] = useState(0);
+
     const handleCateProduct = (ID) => {
         setCateProduct(ID);
     }
 
+    const handleFavProduct = (status) => {
+        setFavProduct(status);
+    }
+
     return (
         <div>
-            <Nav handleCateProduct={handleCateProduct} />
+            <Nav handleCateProduct={handleCateProduct} handleFavProduct={handleFavProduct} />
             <Banner />
-            <Body cateProduct={cateProduct} />
+            <Body cateProduct={cateProduct} favProduct={favProduct} />
             <Footer />
         </div>
     )

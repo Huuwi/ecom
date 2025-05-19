@@ -13,7 +13,7 @@ const Menu = ({ isOpen, categoriesData, handleCateProduct }) => {
                 width: '100%',
                 borderTop: '1px solid #A0A0A0',
                 display: isOpen ? 'block' : 'none',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
             }}
         >
             <nav className="navbar navbar-expand-lg bg-white">

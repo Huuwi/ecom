@@ -64,3 +64,18 @@ exports.resetFavProduct = async (ID) => {
         throw error;
     }
 }
+
+exports.getFavProduct = async () => {
+    try {
+        const pool = await poolPromise;
+
+        const result = await pool.request().query("Select * from Products where IsFavorite = 1");
+
+        console.log("Getting favorite products");
+        return result.recordset;
+    }
+    catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
