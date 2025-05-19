@@ -10,4 +10,6 @@ router.put('/favProduct', ProductController.setFav);
 
 router.put('/resetFavProduct', ProductController.resetFav);
 
+router.get("/favProducts", ProductController.getFavProduct);
+
 module.exports = router;

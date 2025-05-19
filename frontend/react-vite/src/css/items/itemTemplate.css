@@ -11,12 +11,15 @@
     cursor: pointer;
 }
 
-p {
+p,
+a {
+    color: black;
     padding: 0;
     margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 
 .hover {
